@@ -4,17 +4,21 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public class GameCanvas extends JPanel {
 
-    BufferedImage starImage;
+
     BufferedImage enemyImage;
     BufferedImage playerImage;
     BufferedImage backBuffered;
     Graphics graphics;
 
-    public int positionXStar = 400;
-    public int positionYStar = 300;
+    List<Star> stars;
+    private Random random = new Random();
+    private int countStar = 0;
 
     public int positionXEnemy = 500;
     public int positionYEnemy = 0;
@@ -36,11 +40,17 @@ public class GameCanvas extends JPanel {
     }
 
     private void setupCharacter() {
-        this.starImage = this.loadImage("resources/images/star.png");
 
         this.enemyImage = this.loadImage("resources/images/circle.png");
 
         this.playerImage = this.loadImage("resources/images/circle.png");
+
+        this.setupStar();
+    }
+
+    private void setupStar() {
+        this.stars = new ArrayList<>();
+
     }
 
     @Override
@@ -52,7 +62,8 @@ public class GameCanvas extends JPanel {
     public void renderAll() {
         this.renderBackground();
 
-        this.graphics.drawImage(this.starImage, this.positionXStar, this.positionYStar, 5, 5, null);
+        this.stars.forEach(star -> star.render(graphics));
+
         this.graphics.drawImage(this.enemyImage, this.positionXEnemy, this.positionYEnemy, 10, 10, null);
         this.graphics.drawImage(this.playerImage, this.positionXPlayer, this.positionYPlayer, null);
 
@@ -65,8 +76,28 @@ public class GameCanvas extends JPanel {
     }
 
     public void runAll() {
-        this.positionXStar -= 3;
+        this.createStar();
+        this.stars.forEach(star -> star.run());
         this.positionYEnemy += 2;
+    }
+
+    private void createStar() {
+        if (this.countStar == 30) {
+            Star star = new Star(
+                    this.loadImage("resources/images/star.png"),
+                    1024,
+                    this.random.nextInt(600),
+                    5,
+                    5,
+                    -(this.random.nextInt(3) + 1),
+                    0
+            );
+            this.stars.add(star);
+            this.countStar = 0;
+        } else {
+            this.countStar += 1;
+        }
+
     }
 
 
