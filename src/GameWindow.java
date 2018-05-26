@@ -7,7 +7,7 @@ import java.awt.event.WindowEvent;
 public class GameWindow extends JFrame {
 
     GameCanvas gameCanvas;
-    long lastTime = 0;
+    public long lastTime = 0;
 
     public GameWindow() {
         this.setSize(1024, 600); // set size window
@@ -37,16 +37,22 @@ public class GameWindow extends JFrame {
             @Override
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-                    gameCanvas.positionXPlayer -= 8;
+                    gameCanvas.player.velocity.x = -8;
                 }
                 if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-                    gameCanvas.positionXPlayer += 8;
+                    gameCanvas.player.velocity.x = 8;
                 }
 
             }
 
             @Override
             public void keyReleased(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+                    gameCanvas.player.velocity.x = 0;
+                }
+                if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+                    gameCanvas.player.velocity.x = 0;
+                }
             }
         });
     }
