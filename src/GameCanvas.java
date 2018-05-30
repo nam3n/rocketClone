@@ -34,7 +34,8 @@ public class GameCanvas extends JPanel {
     }
 
     private void setupCharacter() {
-        this.background = new Background(0,0, 1024, 600, Color.BLACK);
+        this.background = new Background();
+        this.background.color = Color.BLACK;
         this.enemies = new ArrayList<>();
         this.player = new Player();
         this.player.position.set(500, 300);
@@ -76,15 +77,12 @@ public class GameCanvas extends JPanel {
 
     private void createStar() {
         if (this.countStar == 30) {
-            Star star = new Star(
-                    this.loadImage("resources/images/star.png"),
-                    1024,
-                    this.random.nextInt(600),
-                    5,
-                    5,
-                    -(this.random.nextInt(3) + 1),
-                    0
-            );
+            Star star = new Star();
+            star.image = this.loadImage("resources/images/star.png");
+            star.position.set(1024, this.random.nextInt(600));
+            star.velocity.set(-(this.random.nextInt(3) + 1), 0);
+            star.width = 5;
+            star.height = 5;
             this.stars.add(star);
             this.countStar = 0;
         } else {
@@ -95,25 +93,11 @@ public class GameCanvas extends JPanel {
 
     private void createEnemy() {
         if (this.countEnemy == 200) {
-            int dau = this.random.nextInt(2);
-            if (dau == 0) dau = -1;
-            else dau = 1;
-            int velocityX = dau * (this.random.nextInt(4) + 1);
-
-            dau = this.random.nextInt(2);
-            if (dau == 0) dau = -1;
-            else dau = 1;
-            int velocityY = dau * (this.random.nextInt(4) + 1);
-
-            Enemy enemy = new Enemy(
-                    this.loadImage("resources/images/circle.png"),
-                    this.random.nextInt(1024),
-                    this.random.nextInt(600),
-                    20,
-                    20,
-                    velocityX,
-                    velocityY
-            );
+            Enemy enemy = new Enemy();
+            enemy.image = this.loadImage("resources/images/circle.png");
+            enemy.position.set(this.random.nextInt(1024), this.random.nextInt(600));
+            enemy.width = 20;
+            enemy.height = 20;
             this.enemies.add(enemy);
             this.countEnemy = 0;
         } else {
