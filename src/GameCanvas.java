@@ -109,10 +109,7 @@ public class GameCanvas extends JPanel {
     private void createEnemy() {
         if (this.countEnemy == 200) {
             Enemy enemy = new Enemy();
-            enemy.image = this.loadImage("resources/images/circle.png");
             enemy.position.set(this.random.nextInt(1024), this.random.nextInt(600));
-            enemy.width = 20;
-            enemy.height = 20;
             this.enemies.add(enemy);
             this.countEnemy = 0;
         } else {
