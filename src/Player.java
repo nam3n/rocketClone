@@ -11,6 +11,7 @@ public class Player {
     private Random random;
     private List<Vector2D> verties;
     private Polygon polygon;
+    public double angle = 0.0;
 
     public Player() {
         this.position = new Vector2D();
@@ -57,11 +58,13 @@ public class Player {
         Vector2D center = this.verties
                 .stream()
                 .reduce(new Vector2D(), (v1, v2) -> v1.add(v2))
-                .multiply(1.0f / this.verties.size());
+                .multiply(1.0f / this.verties.size())
+                .rotate(this.angle);
 
         Vector2D translate = this.position.subtract(center);
 
         this.verties.stream()
+                .map(vector2D -> vector2D.rotate(angle))
                 .map(vector2D -> vector2D.add(translate))
                 .forEach(vertex -> polygon.addPoint((int)vertex.x, (int)vertex.y));
     }

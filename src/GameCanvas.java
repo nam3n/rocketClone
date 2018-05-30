@@ -36,10 +36,18 @@ public class GameCanvas extends JPanel {
     private void setupCharacter() {
         this.background = new Background();
         this.background.color = Color.BLACK;
+
         this.enemies = new ArrayList<>();
+
+        this.setupPlayer();
+
+        this.setupStar();
+    }
+
+    private void setupPlayer() {
         this.player = new Player();
         this.player.position.set(500, 300);
-        this.setupStar();
+        this.player.velocity.set(4, 0);
     }
 
     private void setupStar() {
@@ -70,6 +78,13 @@ public class GameCanvas extends JPanel {
         this.stars.forEach(star -> star.run());
 
         this.createEnemy();
+        this.enemies.forEach(enemy -> {
+            Vector2D velocity = player.position
+                    .subtract(enemy.position)
+                    .normalize()
+                    .multiply(random.nextInt(2) + 1);
+            enemy.velocity.set(velocity);
+        });
         this.enemies.forEach(enemy -> enemy.run());
 
         this.player.run();
