@@ -82,7 +82,7 @@ public class GameCanvas extends JPanel {
             Vector2D velocity = player.position
                     .subtract(enemy.position)
                     .normalize()
-                    .multiply(random.nextInt(2) + 1);
+                    .multiply(2.0f);
             enemy.velocity.set(velocity);
         });
         this.enemies.forEach(enemy -> enemy.run());
