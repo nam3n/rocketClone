@@ -25,6 +25,6 @@ public class Enemy {
 
     public void render(Graphics graphics) {
         this.renderer.render(graphics, this.position);
-        this.enemyShoot.bulletEnemies.forEach(bulletEnemy -> render(graphics));
+        this.enemyShoot.bulletEnemies.forEach(bulletEnemy -> bulletEnemy.render(graphics));
     }
 }
