@@ -17,7 +17,7 @@ public class GameCanvas extends JPanel {
     List<Enemy> enemies;
     public Player player;
     private Random random = new Random();
-    private int countStar = 0;
+    private FrameCounter frameCounter = new FrameCounter(30);
     private int countEnemy = 0;
 
     public GameCanvas() {
@@ -90,14 +90,12 @@ public class GameCanvas extends JPanel {
     }
 
     private void createStar() {
-        if (this.countStar == 30) {
+        if (this.frameCounter.run()) {
             Star star = new Star();
             star.position.set(1024, this.random.nextInt(600));
             star.velocity.set(-(this.random.nextInt(3) + 1), 0);
             this.stars.add(star);
-            this.countStar = 0;
-        } else {
-            this.countStar += 1;
+            this.frameCounter.reset();
         }
 
     }
