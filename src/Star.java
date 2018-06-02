@@ -1,17 +1,14 @@
 import java.awt.*;
-import java.awt.image.BufferedImage;
-
 public class Star {
 
-    public BufferedImage image;
     public Vector2D position;
-    public int width;
-    public int height;
     public Vector2D velocity;
+    public Renderer renderer;
 
     public Star() {
         this.position = new Vector2D();
         this.velocity = new Vector2D();
+        this.renderer = new ImageRenderer("resources/images/star.png", 5, 5);
     }
 
     public void run() {
@@ -19,6 +16,6 @@ public class Star {
     }
 
     public void render(Graphics graphics) {
-        graphics.drawImage(this.image, (int) this.position.x, (int) this.position.y, this.width, this.height, null);
+        this.renderer.render(graphics, this.position);
     }
 }

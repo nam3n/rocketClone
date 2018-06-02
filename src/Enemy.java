@@ -6,7 +6,7 @@ public class Enemy {
 
     public Vector2D position;
     public Vector2D velocity;
-    private ImageRenderer renderer;
+    private Renderer renderer;
     private EnemyShoot enemyShoot;
 
     public Enemy() {

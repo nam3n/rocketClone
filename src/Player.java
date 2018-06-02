@@ -10,7 +10,7 @@ public class Player {
     public Vector2D velocity;
     private Random random;
     public double angle = 0.0;
-    private PolygonRenderer renderer;
+    private Renderer renderer;
 
     public Player() {
         this.position = new Vector2D();
@@ -26,7 +26,7 @@ public class Player {
 
     public void run() {
         this.position.addUp(this.velocity);
-        this.renderer.angle = this.angle;
+        ((PolygonRenderer) this.renderer).angle = this.angle;
         this.backToScreen();
     }
 

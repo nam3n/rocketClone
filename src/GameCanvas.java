@@ -35,7 +35,6 @@ public class GameCanvas extends JPanel {
 
     private void setupCharacter() {
         this.background = new Background();
-        this.background.color = Color.BLACK;
 
         this.enemies = new ArrayList<>();
 
@@ -93,11 +92,8 @@ public class GameCanvas extends JPanel {
     private void createStar() {
         if (this.countStar == 30) {
             Star star = new Star();
-            star.image = this.loadImage("resources/images/star.png");
             star.position.set(1024, this.random.nextInt(600));
             star.velocity.set(-(this.random.nextInt(3) + 1), 0);
-            star.width = 5;
-            star.height = 5;
             this.stars.add(star);
             this.countStar = 0;
         } else {
