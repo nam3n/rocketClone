@@ -10,11 +10,13 @@ public class PlayerShoot {
     }
 
     public void run(Player player) {
-        if (this.count == 40) {
+        if (this.count == 20) {
             Bullet bulletPlayer = new Bullet();
             bulletPlayer.position.set(player.position);
 
-            Vector2D rotate = (new Vector2D(7, 0)).rotate(player.playerMove.angle);
+            Vector2D rotate = player.playerMove.velocity.add(
+                    (new Vector2D(2, 0)).rotate(player.playerMove.angle)
+            );
 
             bulletPlayer.velocity.set(rotate);
             this.bulletPlayers.add(bulletPlayer);
