@@ -14,11 +14,10 @@ public class GameCanvas extends JPanel {
 
     Background background;
     List<Star> stars;
-    List<Enemy> enemies;
     public Player player;
     private Random random = new Random();
+    private EnemySpawner enemySpawner = new EnemySpawner();
     private FrameCounter frameCounter = new FrameCounter(30);
-    private int countEnemy = 0;
 
     public GameCanvas() {
         this.setSize(1024, 600);
@@ -35,8 +34,6 @@ public class GameCanvas extends JPanel {
 
     private void setupCharacter() {
         this.background = new Background();
-
-        this.enemies = new ArrayList<>();
 
         this.setupPlayer();
 
@@ -65,9 +62,9 @@ public class GameCanvas extends JPanel {
 
         this.stars.forEach(star -> star.render(graphics));
 
-        this.enemies.forEach(enemy -> enemy.render(graphics));
-
         this.player.render(this.graphics);
+
+        this.enemySpawner.enemies.forEach(enemy -> enemy.render(graphics));
 
         this.repaint();
     }
@@ -76,15 +73,14 @@ public class GameCanvas extends JPanel {
         this.createStar();
         this.stars.forEach(star -> star.run());
 
-        this.createEnemy();
-        this.enemies.forEach(enemy -> {
+        this.enemySpawner.enemies.forEach(enemy -> {
             Vector2D velocity = player.position
                     .subtract(enemy.position)
                     .normalize()
                     .multiply(2.0f);
             enemy.velocity.set(velocity);
         });
-        this.enemies.forEach(enemy -> enemy.run());
+        this.enemySpawner.run();
 
         this.player.run();
     }
@@ -98,25 +94,5 @@ public class GameCanvas extends JPanel {
             this.frameCounter.reset();
         }
 
-    }
-
-    private void createEnemy() {
-        if (this.countEnemy == 200) {
-            Enemy enemy = new Enemy();
-            enemy.position.set(this.random.nextInt(1024), this.random.nextInt(600));
-            this.enemies.add(enemy);
-            this.countEnemy = 0;
-        } else {
-            this.countEnemy += 1;
-        }
-    }
-
-    private BufferedImage loadImage(String path) {
-        try {
-            return ImageIO.read(new File(path));
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
     }
 }
