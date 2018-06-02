@@ -46,7 +46,7 @@ public class GameCanvas extends JPanel {
     private void setupPlayer() {
         this.player = new Player();
         this.player.position.set(500, 300);
-        this.player.velocity.set(4, 0);
+        this.player.playerMove.velocity.set(4, 0);
     }
 
     private void setupStar() {

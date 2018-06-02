@@ -42,18 +42,18 @@ public class GameWindow extends JFrame {
             public void keyPressed(KeyEvent e) {
                 Vector2D velocity = NORMAL.copy();
                 if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-                    gameCanvas.player.angle += 5.0;
+                    gameCanvas.player.playerMove.angle += 5.0;
                 }
                 if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-                    gameCanvas.player.angle -= 5.0;
+                    gameCanvas.player.playerMove.angle -= 5.0;
                 }
 
                 if (e.getKeyCode() == KeyEvent.VK_UP) {
                     velocity = HIGH.copy();
                 }
 
-                Vector2D rotate = velocity.rotate(gameCanvas.player.angle);
-                gameCanvas.player.velocity.set(rotate);
+                Vector2D rotate = velocity.rotate(gameCanvas.player.playerMove.angle);
+                gameCanvas.player.playerMove.velocity.set(rotate);
 
             }
 
@@ -63,8 +63,8 @@ public class GameWindow extends JFrame {
                 if (e.getKeyCode() == KeyEvent.VK_UP) {
                     velocity = NORMAL.copy();
                 }
-                Vector2D rotate = velocity.rotate(gameCanvas.player.angle);
-                gameCanvas.player.velocity.set(rotate);
+                Vector2D rotate = velocity.rotate(gameCanvas.player.playerMove.angle);
+                gameCanvas.player.playerMove.velocity.set(rotate);
             }
         });
     }
