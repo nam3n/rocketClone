@@ -1,6 +1,3 @@
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.util.Random;
 
 public class Enemy extends GameObject {
 
@@ -18,6 +15,14 @@ public class Enemy extends GameObject {
         super.run();
         this.position.addUp(this.velocity);
         this.enemyShoot.run(this);
-
+        Player player = GameObjectManager.instance.findPlayer();
+        if (player != null) {
+            this.velocity.set(
+                    player.position
+                            .subtract(this.position)
+                            .normalize()
+                            .multiply(2.0f)
+            );
+        }
     }
 }

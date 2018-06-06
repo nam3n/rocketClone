@@ -48,5 +48,6 @@ public class GameCanvas extends JPanel {
 
     public void runAll() {
         GameObjectManager.instance.runAll();
+        KeyboardInput.instance.reset();
     }
 }

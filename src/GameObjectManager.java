@@ -27,4 +27,12 @@ public class GameObjectManager {
     public void renderAll(Graphics graphics) {
         this.list.forEach(gameObject -> gameObject.render(graphics));
     }
+
+    public Player findPlayer() {
+        return (Player) this.list
+                .stream()
+                .filter(gameObject -> gameObject instanceof Player)
+                .findFirst()
+                .orElse(null);
+    }
 }
