@@ -6,10 +6,7 @@ public class GameCanvas extends JPanel {
     BufferedImage backBuffered;
     Graphics graphics;
 
-    Background background;
-    private StarSpawner starSpawner;
     public Player player;
-    private EnemySpawner enemySpawner = new EnemySpawner();
 
     public GameCanvas() {
         this.setSize(1024, 600);
@@ -25,21 +22,17 @@ public class GameCanvas extends JPanel {
     }
 
     private void setupCharacter() {
-        this.background = new Background();
-
+        GameObjectManager.instance.add(new Background());
         this.setupPlayer();
-
-        this.setupStar();
+        GameObjectManager.instance.add(new StarSpawner());
+        GameObjectManager.instance.add(new EnemySpawner());
     }
 
     private void setupPlayer() {
         this.player = new Player();
         this.player.position.set(500, 300);
         this.player.playerMove.velocity.set(4, 0);
-    }
-
-    private void setupStar() {
-        this.starSpawner = new StarSpawner();
+        GameObjectManager.instance.add(this.player);
     }
 
     @Override

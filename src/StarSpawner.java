@@ -1,15 +1,11 @@
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 public class StarSpawner extends GameObject {
 
-    public List<Star> stars;
     private Random random;
     private FrameCounter frameCounter;
 
     public StarSpawner() {
-        this.stars = new ArrayList<>();
         this.random = new Random();
         this.frameCounter = new FrameCounter(30);
     }
@@ -21,9 +17,8 @@ public class StarSpawner extends GameObject {
             Star star = new Star();
             star.position.set(1024, this.random.nextInt(600));
             star.velocity.set(-(this.random.nextInt(3) + 1), 0);
-            this.stars.add(star);
+            GameObjectManager.instance.add(star);
             this.frameCounter.reset();
         }
-        this.stars.forEach(star -> star.run());
     }
 }

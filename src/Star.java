@@ -1,4 +1,4 @@
-import java.awt.*;
+
 public class Star extends GameObject {
     public Vector2D velocity;
 
