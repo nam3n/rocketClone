@@ -5,9 +5,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
-public class Player {
-    public Vector2D position;
-    private Renderer renderer;
+public class Player extends GameObject {
     public PlayerMove playerMove;
     public PlayerShoot playerShoot;
 
@@ -23,15 +21,18 @@ public class Player {
         this.playerShoot = new PlayerShoot();
     }
 
+    @Override
     public void run() {
+        super.run();
         this.playerMove.run(this);
         this.playerShoot.run(this);
         this.playerShoot.bulletPlayers.forEach(bullet -> bullet.run());
         ((PolygonRenderer) this.renderer).angle = this.playerMove.angle;
     }
 
+    @Override
     public void render(Graphics graphics) {
-        this.renderer.render(graphics, this.position);
+        super.render(graphics);
         this.playerShoot.bulletPlayers.forEach(bullet -> bullet.render(graphics));
     }
 }
