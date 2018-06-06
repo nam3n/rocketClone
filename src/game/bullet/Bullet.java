@@ -1,4 +1,8 @@
-import java.awt.*;
+package game.bullet;
+
+import base.GameObject;
+import base.Vector2D;
+import renderer.ImageRenderer;
 
 public class Bullet extends GameObject {
     public Vector2D velocity;

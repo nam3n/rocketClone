@@ -1,3 +1,9 @@
+package game.enemy;
+
+import base.FrameCounter;
+import base.GameObject;
+import base.GameObjectManager;
+
 import java.util.Random;
 
 public class EnemySpawner extends GameObject {

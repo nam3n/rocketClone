@@ -1,3 +1,8 @@
+package game.player;
+
+import base.Vector2D;
+import input.KeyboardInput;
+
 import java.util.Random;
 
 public class PlayerMove {

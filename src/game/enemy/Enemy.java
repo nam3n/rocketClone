@@ -1,3 +1,10 @@
+package game.enemy;
+
+import base.GameObject;
+import base.GameObjectManager;
+import base.Vector2D;
+import game.player.Player;
+import renderer.ImageRenderer;
 
 public class Enemy extends GameObject {
 
