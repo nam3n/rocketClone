@@ -10,7 +10,6 @@ import renderer.ImageRenderer;
 public class Enemy extends GameObject {
 
     public Vector2D velocity;
-    public BoxCollider boxCollider;
     private EnemyShoot enemyShoot;
 
     public Enemy() {
@@ -32,7 +31,6 @@ public class Enemy extends GameObject {
                     player.position
                             .subtract(this.position)
                             .normalize()
-                            .multiply(2.0f)
             );
         }
     }

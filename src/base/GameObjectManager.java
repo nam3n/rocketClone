@@ -49,14 +49,14 @@ public class GameObjectManager {
                 .orElse(null);
     }
 
-    public Enemy checkCollision(Bullet bullet) {
+    public Enemy checkCollision(GameObject object) {
         return (Enemy) this.list
                 .stream()
                 .filter(gameObject -> gameObject.isAlive)
                 .filter(gameObject -> gameObject instanceof Enemy)
                 .filter(gameObject -> {
                     BoxCollider other = ((Enemy) gameObject).boxCollider;
-                    return bullet.boxCollider.checkBoxCollider(other);
+                    return object.boxCollider.checkBoxCollider(other);
                 })
                 .findFirst()
                 .orElse(null);

@@ -9,7 +9,7 @@ public class PlayerShoot {
     private FrameCounter frameCounter;
 
     public PlayerShoot() {
-        this.frameCounter = new FrameCounter(20);
+        this.frameCounter = new FrameCounter(5);
     }
 
     public void run(Player player) {
