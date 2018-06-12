@@ -33,12 +33,6 @@ public class PlayerMove {
         if (KeyboardInput.instance.upReleased) {
             velocity = NORMAL.copy();
         }
-        if (KeyboardInput.instance.spacePressed) {
-            player.shooting = true;
-        }
-        if (KeyboardInput.instance.spaceReleased) {
-            player.shooting = false;
-        }
 
         Vector2D rotate = velocity.rotate(angle);
         this.velocity.set(rotate);

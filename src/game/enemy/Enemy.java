@@ -5,11 +5,13 @@ import base.GameObjectManager;
 import base.Vector2D;
 import game.player.Player;
 import physic.BoxCollider;
+import physic.PhysicBody;
 import renderer.ImageRenderer;
 
-public class Enemy extends GameObject {
+public class Enemy extends GameObject implements PhysicBody {
 
     public Vector2D velocity;
+    public BoxCollider boxCollider;
     private EnemyShoot enemyShoot;
 
     public Enemy() {
@@ -33,5 +35,15 @@ public class Enemy extends GameObject {
                             .normalize()
             );
         }
+    }
+    @Override
+    public void getHit(GameObject gameObject) {
+
+        this.isAlive = false;
+    }
+
+    @Override
+    public BoxCollider getBoxCollider() {
+        return this.boxCollider;
     }
 }

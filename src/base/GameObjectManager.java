@@ -4,6 +4,7 @@ import game.bullet.Bullet;
 import game.enemy.Enemy;
 import game.player.Player;
 import physic.BoxCollider;
+import physic.PhysicBody;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -49,16 +50,48 @@ public class GameObjectManager {
                 .orElse(null);
     }
 
-    public Enemy checkCollision(GameObject object) {
-        return (Enemy) this.list
+    //    public Enemy checkCollision(Bullet bullet) {
+//        return (Enemy) this.list
+//                .stream()
+//                .filter(gameObject -> gameObject.isAlive)
+//                .filter(gameObject -> gameObject instanceof Enemy)
+//                .filter(gameObject -> {
+//                    BoxCollider other = ((Enemy) gameObject).boxCollider;
+//                    return bullet.boxCollider.checkBoxCollider(other);
+//                })
+//                .findFirst()
+//                .orElse(null);
+//    }
+    public <T extends GameObject> T checkCollision(BoxCollider boxCollider, Class<T> cls) {
+        return (T) this.list
                 .stream()
                 .filter(gameObject -> gameObject.isAlive)
-                .filter(gameObject -> gameObject instanceof Enemy)
+                .filter(gameObject -> cls.isInstance(gameObject))
+                .filter(gameObject -> gameObject instanceof PhysicBody)
                 .filter(gameObject -> {
-                    BoxCollider other = ((Enemy) gameObject).boxCollider;
-                    return object.boxCollider.checkBoxCollider(other);
+                    BoxCollider other = ((PhysicBody) gameObject).getBoxCollider();
+                    return boxCollider.checkBoxCollider(other);
                 })
                 .findFirst()
                 .orElse(null);
+    }
+
+    public <T extends GameObject> T recycle(Class<T> cls) {
+        T object = (T) this.list.stream()
+                .filter(gameObject -> !gameObject.isAlive)
+                .filter(gameObject -> cls.isInstance(gameObject))
+                .findFirst()
+                .orElse(null);
+        if (object != null) {
+            object.isAlive = true;
+        } else {
+            try {
+                object = cls.newInstance();
+                this.add(object);
+            } catch (InstantiationException | IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
+        return object;
     }
 }

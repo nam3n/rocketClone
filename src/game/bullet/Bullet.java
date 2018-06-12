@@ -5,14 +5,19 @@ import base.GameObjectManager;
 import base.Vector2D;
 import game.enemy.Enemy;
 import physic.BoxCollider;
+import physic.PhysicBody;
+import physic.RunHitObject;
 import renderer.ImageRenderer;
 
 import java.awt.*;
 
-public class Bullet extends GameObject {
+public class Bullet extends GameObject implements PhysicBody {
     public Vector2D velocity;
+    public BoxCollider boxCollider;
+    private RunHitObject runHitObject;
 
     public Bullet() {
+        this.runHitObject = new RunHitObject(Enemy.class);
         this.velocity = new Vector2D();
         this.renderer = new ImageRenderer("resources/images/circle.png", 6, 6);
         this.boxCollider = new BoxCollider(6, 6);
@@ -23,10 +28,17 @@ public class Bullet extends GameObject {
         super.run();
         this.position.addUp(this.velocity);
         this.boxCollider.position.set(this.position.x - 3, this.position.y - 3);
-        Enemy enemy = GameObjectManager.instance.checkCollision(this);
-        if (enemy != null) {
-            enemy.isAlive = false;
+        this.runHitObject.run(this);
+    }
+    @Override
+    public void getHit(GameObject gameObject) {
+        if (gameObject instanceof Enemy) {
             this.isAlive = false;
         }
+    }
+
+    @Override
+    public BoxCollider getBoxCollider() {
+        return this.boxCollider;
     }
 }

@@ -12,7 +12,6 @@ import java.awt.*;
 public class Player extends GameObject {
     public PlayerMove playerMove;
     public PlayerShoot playerShoot;
-    public boolean shooting = false;
 
     public Player() {
         this.position = new Vector2D();
@@ -31,7 +30,7 @@ public class Player extends GameObject {
     public void run() {
         super.run();
         this.playerMove.run(this);
-        if (shooting) this.playerShoot.run(this);
+        this.playerShoot.run(this);
         ((PolygonRenderer) this.renderer).angle = this.playerMove.angle;
         this.boxCollider.position.set(this.position.x - 3, this.position.y - 3);
         Enemy enemy = GameObjectManager.instance.checkCollision(this);
